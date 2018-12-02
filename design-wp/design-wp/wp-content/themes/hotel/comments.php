@@ -7,12 +7,20 @@ $comment_form_args = array(
 comment_form();
 if ( have_comments() ) : 
 ?>
-    <p><?php comments_number(); ?></p>
+    <p><?php comments_number('コメントはありません。', 'コメントが1件あります。', 'コメントが%件あります。'); ?></p>
     <ol class="commentlist">
-        <?php wp_list_comments( $wp_list_comments_args ); ?>
+        <?php 
+        $wp_list_comments_args = array(
+            'avatar_size' => '50'
+        );
+        wp_list_comments( $wp_list_comments_args ); ?>
     </ol>
 <?php 
-paginate_comments_links();
+$pagenate_comments_links_args = array(
+    'prev_text' => '←前のコメントページ',
+    'next_text' => '次のコメントページ→',
+);
+paginate_comments_links( $pagenate_comments_links_args );
 endif;
 ?>
 </section><!-- /.comments -->
