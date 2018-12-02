@@ -39,3 +39,19 @@ add_filter('excerpt_more', 'my_excerpt_more');
 function my_excerpt_more() {
     return '...<a href="'. get_permalink() . '">続きを読む→</a>';
 }
+
+/**
+ * 記事一覧をカスタマイズする
+ */
+add_action( 'pre_get_posts', 'my_pre_get_posts' );
+function my_pre_get_posts($query) {
+  if ( is_admin() || ! $query->is_main_query() ){
+    return;
+}
+
+  if ( $query->is_home() ) {
+    $query->set( 'posts_per_page', 3 );
+    $query->set( 'category_name', 'news' );
+    return;
+  }
+}
