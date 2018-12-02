@@ -19,3 +19,23 @@ function my_comment_form_default_fields( $args ) {
   $args['url'] = '';
   return $args;
 }
+
+/**
+ * <head>内にRSSのlink要素を出力する
+ */
+add_theme_support( 'automatic-feed-links' );
+
+/**
+ * RSSに配信する文字数を設定する
+ */
+function my_excerpt_mblength( $length ) {
+  return 100;
+}
+
+/**
+ * RSSに「続きを読む」のリンクを追加する
+ */
+add_filter('excerpt_more', 'my_excerpt_more');
+function my_excerpt_more() {
+    return '...<a href="'. get_permalink() . '">続きを読む→</a>';
+}
